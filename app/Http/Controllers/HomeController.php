@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Cart;
+use Excel;
+use Image;  
 class HomeController extends Controller
 {
     /**
@@ -70,4 +72,38 @@ class HomeController extends Controller
             $myCart->destroy();
             return redirect('/get_cart');
         }
+    public function saveCSV(Request $request){
+
+        $data['name']=$request->name;
+        $data['mobile']=$request->mobile;
+        $data['city']=$request->city;
+        Excel::create('Filename', function($excel) use($data) {
+
+            $excel->sheet('Sheetname', function($sheet) use($data) {
+
+                $sheet->fromArray($data);
+
+            });
+
+        })->export('csv');
+
+        // or
+        
+        
+    }
+public function uploadImage(Request $request){
+        $image=$request->file("img");
+        $random=rand();
+        $filename=$random.$image->getClientOriginalName();
+        $thumb_name=$random."__".$image->getClientOriginalName();
+        if($image->move('public',$filename)){
+            echo "Moved good";
+            $thumb=Image::make('public/'.$filename)->resize(800, 700, function ($constraint) {
+            $constraint->aspectRatio();
+        })->insert('public/watermark.png')->save('public/'."80x80_".$filename,60);
+        }
+        //print_r($image);
+        
+        
+    }
 }

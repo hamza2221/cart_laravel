@@ -30,6 +30,39 @@
                         <input type="submit" class="btn btn-success" value="Add to cart" />
                     </div>
                 </form>
+                <form method="post" action="{{url('/saveCSV.html')}}">
+                {{csrf_field()}}
+                    <div class="fom-group @if (isset($messages) && $messages->has('name')) has-error @endif">
+                        <label>Name</label>
+                        <input type="text"  name="name" class="form-control" />
+                    </div>
+                    <div class="fom-group @if (isset($messages) && $messages->has('mobile')) has-error @endif">
+                        <label>Mobile</label>
+                        <input type="text"  name="mobile" class="form-control" />
+                    </div>
+                    <div class="fom-group @if (isset($messages) && $messages->has('city')) has-error @endif">
+                        <label>City</label>
+                        <input type="text"  name="city" class="form-control" />
+                    </div>
+
+                    
+                    <div class="fom-group" style=" margin-top: 15px;">
+                        <input type="submit" class="btn btn-success" value="Submit" />
+                    </div>
+                </form>
+                <form enctype="multipart/form-data"  method="post" action="{{url('/uploadImage.html')}}">
+                {{csrf_field()}}
+                    <div class="fom-group @if (isset($messages) && $messages->has('name')) has-error @endif">
+                        <label>Upload Image</label>
+                        <input type="file"  name="img" class="form-control" />
+                    </div>
+                    
+                    
+                    
+                    <div class="fom-group" style=" margin-top: 15px;">
+                        <input type="submit" class="btn btn-success" value="Submit" />
+                    </div>
+                </form>
                 </div>
                     
                 </div>

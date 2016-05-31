@@ -22,3 +22,5 @@ Route::get('/destroy_cart', 'HomeController@destroyCart');
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::post('/saveCSV.html', 'HomeController@saveCSV');
+Route::post('/uploadImage.html', 'HomeController@uploadImage');
